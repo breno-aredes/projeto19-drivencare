@@ -9,7 +9,7 @@ async function findbyEmail(email) {
   );
 }
 
-async function create({ name, email, password, type }) {
+async function signup({ name, email, password, type }) {
   console.log(email);
 
   try {
@@ -27,5 +27,5 @@ async function create({ name, email, password, type }) {
 
 export default {
   findbyEmail,
-  create,
+  signup,
 };

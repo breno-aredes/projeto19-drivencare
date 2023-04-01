@@ -3,6 +3,6 @@ import userRoutes from "./user.Routes.js";
 
 const routes = Router();
 
-routes.use("/signup", userRoutes);
+routes.use("/", userRoutes);
 
 export default routes;
