@@ -25,7 +25,12 @@ async function signin({ email, password }) {
 
   if (!validPassword) throw new Error(`Incorrect e-mail or password`);
 
-  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+  const dataUser = {
+    id: user.id,
+    type: user.type,
+  };
+
+  const token = jwt.sign(dataUser, process.env.JWT_SECRET, {
     expiresIn: "1d",
   });
 
