@@ -21,12 +21,11 @@ async function signin({ email, password }) {
     rows: [user],
   } = await userRepositories.findByEmail(email);
 
-  if (!rowCount) throw errors.conflictError(`Incorrect e-mail or password`);
+  if (!rowCount) throw errors.invalidCredentilsError();
 
   const validPassword = await bcrypt.compare(password, user.password);
 
-  if (!validPassword)
-    throw errors.conflictError(`Incorrect e-mail or password`);
+  if (!validPassword) throw errors.invalidCredentilsError();
 
   const dataUser = {
     id: user.id,
