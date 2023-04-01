@@ -1,6 +1,6 @@
 import db from "../config/database.js";
 
-async function findbyEmail(email) {
+async function findByEmail(email) {
   return await db.query(
     `
     SELECT * FROM users WHERE email=$1;
@@ -26,6 +26,6 @@ async function signup({ name, email, password, type }) {
 }
 
 export default {
-  findbyEmail,
+  findByEmail,
   signup,
 };
