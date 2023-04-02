@@ -10,6 +10,30 @@ async function findAllDoctors(req, res, next) {
   }
 }
 
+async function findDoctorByName(req, res, next) {
+  const { name } = req.params;
+  try {
+    const doctor = await doctorServices.findDoctorByName(name);
+
+    return res.send({ doctor });
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function findDoctorBySpecialty(req, res, next) {
+  const { specialty } = req.params;
+  try {
+    const doctor = await doctorServices.findDoctorBySpecialty(specialty);
+
+    return res.send({ doctor });
+  } catch (error) {
+    next(error);
+  }
+}
+
 export default {
   findAllDoctors,
+  findDoctorByName,
+  findDoctorBySpecialty,
 };
