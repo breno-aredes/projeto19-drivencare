@@ -10,19 +10,13 @@ async function findByEmail(email) {
 }
 
 async function signup({ name, email, password, type }) {
-  console.log(email);
-
-  try {
-    return await db.query(
-      `
+  return await db.query(
+    `
       INSERT INTO users (name, email, password, type)
       VALUES ($1, $2, $3, $4);
       `,
-      [name, email, password, type]
-    );
-  } catch (error) {
-    console.log(error);
-  }
+    [name, email, password, type]
+  );
 }
 
 export default {

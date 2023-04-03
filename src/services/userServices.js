@@ -6,8 +6,9 @@ import errors from "../errors/index.js";
 async function signup({ name, email, password, confirmPassword, type }) {
   const { rowCount } = await userRepositories.findByEmail(email);
 
-  if (password !== confirmPassword)
+  if (password !== confirmPassword) {
     throw errors.conflictError(`Passwords do not match`);
+  }
 
   if (rowCount) throw errors.conflictError(`E-mail already registered`);
 

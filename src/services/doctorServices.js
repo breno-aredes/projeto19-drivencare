@@ -27,8 +27,15 @@ async function findDoctorBySpecialty(specialty) {
   return rows;
 }
 
+async function createDoctor(userId, specialtyId) {
+  //fazer um findUserById e um findSpecialtyById seria reduntante??
+  //ver depois
+  return await doctorRepositories.createDoctor(userId, specialtyId);
+}
+
 export default {
   findAllDoctors,
   findDoctorByName,
   findDoctorBySpecialty,
+  createDoctor,
 };

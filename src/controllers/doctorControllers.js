@@ -32,8 +32,20 @@ async function findDoctorBySpecialty(req, res, next) {
   }
 }
 
+async function createDoctor(req, res, next) {
+  const { userId, specialtyId } = req.body;
+
+  try {
+    const doctor = await doctorServices.createDoctor(userId, specialtyId);
+    res.status(201).send({ doctor });
+  } catch (error) {
+    next(error);
+  }
+}
+
 export default {
   findAllDoctors,
   findDoctorByName,
   findDoctorBySpecialty,
+  createDoctor,
 };
