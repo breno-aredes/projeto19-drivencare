@@ -5,20 +5,20 @@ import userRepositories from "../repositories/userRepositories.js";
 
 async function createAppointment(userId, doctorId, date, hour) {
   const doctor = await doctorRepositories.findDoctorById(doctorId);
-  if (!doctor) {
-    throw errors.notFoundError();
+  if (!doctor.rowCount) {
+    throw errors.conflictError(`Doctor not found`);
   }
 
   const user = await userRepositories.findUserById(userId);
-  if (!user) {
-    throw errors.notFoundError();
+  if (!user.rowCount) {
+    throw errors.conflictError(`User not found`);
   }
 
   const specialty = await doctorRepositories.findSpecialtyById(
-    doctor.specialtyId
+    doctor.rows[0].specialtyId
   );
-  if (!specialty) {
-    throw errors.notFoundError();
+  if (!specialty.rowCount) {
+    throw errors.conflictError(`specialty does not exist`);
   }
 
   const isTimeAvailable = await appointmentRepositories.checkTimeAvailability(
