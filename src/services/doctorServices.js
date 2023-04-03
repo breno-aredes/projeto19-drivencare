@@ -29,8 +29,6 @@ async function findDoctorBySpecialty(specialty) {
 }
 
 async function createDoctor(userId, specialtyId) {
-  //se o doutor ja tiver uma especialidade não pode colocar outra, deve ser tratado
-
   const {
     rowCount,
     rows: [user],
@@ -48,7 +46,7 @@ async function createDoctor(userId, specialtyId) {
     throw errors.conflictError(`specialty does not exist`);
   }
 
-  const doctor = await doctorRepositories.findDoctorByUserId(userId);
+  const doctor = await doctorRepositories.findDoctorById(userId);
 
   if (doctor.rowCount)
     throw errors.conflictError(`doctor already has a specified specialty`);

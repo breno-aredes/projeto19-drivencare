@@ -63,7 +63,7 @@ async function findSpecialtyById(specialtyId) {
   return specialty;
 }
 
-async function findDoctorByUserId(userId) {
+async function findDoctorById(userId) {
   const doctor = await db.query(
     `
   SELECT * FROM doctors WHERE "userId"=$1;
@@ -79,5 +79,5 @@ export default {
   findDoctorBySpecialty,
   createDoctor,
   findSpecialtyById,
-  findDoctorByUserId,
+  findDoctorById,
 };

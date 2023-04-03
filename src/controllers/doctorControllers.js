@@ -37,7 +37,7 @@ async function createDoctor(req, res, next) {
 
   try {
     await doctorServices.createDoctor(userId, specialtyId);
-    res.status(201).send("created");
+    res.sendStatus(201);
   } catch (error) {
     next(error);
   }
