@@ -30,6 +30,7 @@ async function findDoctorBySpecialty(specialty) {
 async function createDoctor(userId, specialtyId) {
   //fazer um findUserById e um findSpecialtyById seria reduntante??
   //ver depois
+  //se o doutor ja tiver uma especialidade não pode colocar outra, deve ser tratado
   return await doctorRepositories.createDoctor(userId, specialtyId);
 }
 
