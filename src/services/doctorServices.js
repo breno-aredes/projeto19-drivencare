@@ -1,5 +1,6 @@
 import errors from "../errors/index.js";
 import doctorRepositories from "../repositories/doctorRepositories.js";
+import userRepositories from "../repositories/userRepositories.js";
 
 async function findAllDoctors() {
   const { rows, rowCount } = await doctorRepositories.findAllDoctors();
@@ -28,9 +29,30 @@ async function findDoctorBySpecialty(specialty) {
 }
 
 async function createDoctor(userId, specialtyId) {
-  //fazer um findUserById e um findSpecialtyById seria reduntante??
-  //ver depois
   //se o doutor ja tiver uma especialidade não pode colocar outra, deve ser tratado
+
+  const {
+    rowCount,
+    rows: [user],
+  } = await userRepositories.findUserById(userId);
+
+  if (!rowCount) throw errors.conflictError(`User not found`);
+
+  if (user.type !== "doctor") {
+    throw errors.conflictError(`user does not have authorization`);
+  }
+
+  const specialty = await doctorRepositories.findSpecialtyById(specialtyId);
+
+  if (!specialty.rowCount) {
+    throw errors.conflictError(`specialty does not exist`);
+  }
+
+  const doctor = await doctorRepositories.findDoctorByUserId(userId);
+
+  if (doctor.rowCount)
+    throw errors.conflictError(`doctor already has a specified specialty`);
+
   return await doctorRepositories.createDoctor(userId, specialtyId);
 }
 

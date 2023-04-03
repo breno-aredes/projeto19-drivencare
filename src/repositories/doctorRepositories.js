@@ -52,9 +52,32 @@ async function createDoctor(userId, specialtyId) {
   );
 }
 
+async function findSpecialtyById(specialtyId) {
+  const specialty = await db.query(
+    `
+    SELECT * FROM specialties WHERE id=$1;
+    `,
+    [specialtyId]
+  );
+
+  return specialty;
+}
+
+async function findDoctorByUserId(userId) {
+  const doctor = await db.query(
+    `
+  SELECT * FROM doctors WHERE "userId"=$1;
+  `,
+    [userId]
+  );
+  return doctor;
+}
+
 export default {
   findAllDoctors,
   findDoctorByName,
   findDoctorBySpecialty,
   createDoctor,
+  findSpecialtyById,
+  findDoctorByUserId,
 };
