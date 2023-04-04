@@ -33,6 +33,16 @@ async function createAppointment(userId, doctorId, date, hour) {
   await appointmentRepositories.createAppointment(userId, doctorId, date, hour);
 }
 
+async function statusAppointment(appointmentId, status) {
+  const { rowCount } = await appointmentRepositories.findAppointmentById(
+    appointmentId
+  );
+  if (!rowCount) throw errors.notFoundError();
+
+  await appointmentRepositories.statusAppointment(appointmentId, status);
+}
+
 export default {
   createAppointment,
+  statusAppointment,
 };

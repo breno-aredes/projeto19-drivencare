@@ -1,6 +1,6 @@
 import joi from "joi";
 
-export const appointementSchema = joi.object({
+export const appointmentSchema = joi.object({
   userId: joi.number().required(),
   doctorId: joi.number().required(),
   date: joi.date().iso().required(),
@@ -17,4 +17,8 @@ export const appointementSchema = joi.object({
       "17:00"
     )
     .required(),
+});
+
+export const appointmentStatusSchema = joi.object({
+  status: joi.string().valid("confirmed", "canceled"),
 });

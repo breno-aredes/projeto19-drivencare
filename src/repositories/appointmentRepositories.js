@@ -30,7 +30,27 @@ async function checkTimeAvailability(doctorId, date, hour) {
   return rowCount;
 }
 
+async function findAppointmentById(appointmentId) {
+  return await db.query(
+    `
+    SELECT * FROM appointments WHERE id=$1;
+    `,
+    [appointmentId]
+  );
+}
+
+async function statusAppointment(appointmentId, status) {
+  return await db.query(
+    `
+    UPDATE appointments SET status=$1 WHERE id=$2;
+    `,
+    [status, appointmentId]
+  );
+}
+
 export default {
   createAppointment,
   checkTimeAvailability,
+  findAppointmentById,
+  statusAppointment,
 };

@@ -11,6 +11,20 @@ async function createAppointment(req, res, next) {
   }
 }
 
+async function statusAppointment(req, res, next) {
+  const { appointmentId } = req.params;
+  const { status } = req.body;
+
+  res.sendStatus(200);
+  try {
+    await appointmentServices.statusAppointment(appointmentId, status);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+}
+
 export default {
   createAppointment,
+  statusAppointment,
 };
