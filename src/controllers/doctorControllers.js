@@ -33,7 +33,8 @@ async function findDoctorBySpecialty(req, res, next) {
 }
 
 async function createDoctor(req, res, next) {
-  const { userId, specialtyId } = req.body;
+  const { specialtyId } = req.body;
+  const userId = res.locals.user.id;
 
   try {
     await doctorServices.createDoctor(userId, specialtyId);

@@ -3,11 +3,13 @@ import appointmentRepositories from "../repositories/appointmentRepositories.js"
 import doctorRepositories from "../repositories/doctorRepositories.js";
 import userRepositories from "../repositories/userRepositories.js";
 
-async function createAppointment(userId, doctorId, date, hour) {
+async function createAppointment(userId, doctorId, date, hour, type) {
   const doctor = await doctorRepositories.findDoctorById(doctorId);
   if (!doctor.rowCount) {
     throw errors.conflictError(`Doctor not found`);
   }
+
+  if (type !== "patient") throw errors.conflictError("not a patient");
 
   const user = await userRepositories.findUserById(userId);
   if (!user.rowCount) {

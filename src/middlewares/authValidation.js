@@ -1,3 +1,6 @@
+import jwt from "jsonwebtoken";
+import userRepositories from "../repositories/userRepositories.js";
+
 async function authValidation(req, res, next) {
   const { authorization } = req.headers;
   const token = authorization?.replace("Bearer ", "");
@@ -14,10 +17,13 @@ async function authValidation(req, res, next) {
     if (!user) return res.status(401).send("User not found");
 
     res.locals.user = user;
+
     next();
   } catch (err) {
     res.status(500).send(err.message);
   }
 }
 
-export default { authValidation };
+export default {
+  authValidation,
+};

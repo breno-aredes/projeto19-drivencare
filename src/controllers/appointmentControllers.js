@@ -1,9 +1,18 @@
 import appointmentServices from "../services/appointmentServices.js";
 
 async function createAppointment(req, res, next) {
-  const { userId, doctorId, date, hour } = req.body;
+  const { doctorId, date, hour } = req.body;
+  const userId = res.locals.user.id;
+  const type = res.locals.user.type;
+
   try {
-    await appointmentServices.createAppointment(userId, doctorId, date, hour);
+    await appointmentServices.createAppointment(
+      userId,
+      doctorId,
+      date,
+      hour,
+      type
+    );
 
     res.sendStatus(201);
   } catch (error) {
@@ -23,7 +32,17 @@ async function statusAppointment(req, res, next) {
     next(error);
   }
 }
-
+async function getAppointmentHistory(req, res, next) {
+  const { userId } = req.params;
+  try {
+    const appointments = await appointmentServices.getAppointmentHistory(
+      userId
+    );
+    res.status(200).json(appointments);
+  } catch (error) {
+    next(error);
+  }
+}
 export default {
   createAppointment,
   statusAppointment,
